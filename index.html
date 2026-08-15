@@ -1,1 +1,58 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Fahad Khan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #121212; --paper: #F6F4F1; --red: #C6262A; --graphite: #6E6E6E;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%;
+    background: var(--paper); color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    padding: 24px;
+  }
+  .mark {
+    font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 15px;
+    margin-bottom: 28px; letter-spacing: 0.02em;
+  }
+  .mark .bracket { color: var(--red); }
+  h1 {
+    font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    font-size: clamp(24px, 5vw, 34px); margin: 0 0 14px; letter-spacing: -0.01em;
+  }
+  p.tag {
+    font-size: 15px; color: var(--graphite); max-width: 46ch; margin: 0 0 30px; line-height: 1.6;
+  }
+  a.email {
+    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--red);
+    text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 2px;
+  }
+  footer {
+    position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--graphite); letter-spacing: 0.06em;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="mark"><span class="bracket">[</span>FK<span class="bracket">]</span></div>
+    <h1>Muhammad Fahad Khan</h1>
+    <p class="tag">I find what's actually broken, fix it, and prove the fix with real numbers. Full site under construction.</p>
+    <a class="email" href="mailto:fk3726947@gmail.com">Email me →</a>
+  </div>
+  <footer>Built — 2026</footer>
+</body>
+</html>
