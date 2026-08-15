@@ -3,55 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muhammad Fahad Khan</title>
+<title>Muhammad Fahad Khan — I find what's actually broken</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #121212; --paper: #F6F4F1; --red: #C6262A; --graphite: #6E6E6E;
+    --ink: #121212; --paper: #F6F4F1; --red: #C6262A; --graphite: #6E6E6E; --hair: rgba(18,18,18,0.14);
   }
   * { box-sizing: border-box; }
-  html, body {
-    margin: 0; height: 100%;
-    background: var(--paper); color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; line-height: 1.65; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 20; background: rgba(246,244,241,0.92); backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--hair); display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 24px;
   }
-  .wrap {
-    min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; text-align: center;
-    padding: 24px;
+  nav .mark { font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 15px; }
+  nav .mark .bracket { color: var(--red); }
+  nav .links { display: flex; gap: 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  nav .links a { color: var(--ink); text-decoration: none; }
+  nav .links a:hover { color: var(--red); }
+  nav .links a.cta { color: var(--red); }
+
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px; }
+
+  /* Hero */
+  .hero { padding: 100px 0 80px; text-align: left; }
+  .hero .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin: 0 0 18px; }
+  .hero h1 { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: clamp(30px, 5vw, 46px); line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 22px; max-width: 18ch; }
+  .hero p.sub { font-size: 17px; color: var(--graphite); max-width: 58ch; margin: 0 0 30px; }
+  .hero .btn-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn { font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; padding: 11px 20px; border-radius: 3px; text-decoration: none; display: inline-block; cursor: pointer; border: none; }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--hair); }
+
+  /* Section shell */
+  section.case { padding: 60px 0; border-top: 1px solid var(--hair); }
+  section.case .case-label { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin: 0 0 6px; display: flex; align-items: center; gap: 10px; }
+  section.case .lead-tag { background: var(--red); color: var(--paper); padding: 2px 8px; border-radius: 3px; font-size: 10px; }
+  section.case h2 { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; margin: 0 0 20px; max-width: 34ch; }
+  section.case .block { margin-bottom: 18px; }
+  section.case .block h3 { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--graphite); margin: 0 0 8px; }
+  section.case .block p { font-size: 15px; margin: 0; }
+  section.case table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 10px 0; }
+  section.case th, section.case td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--hair); }
+  section.case th { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; color: var(--graphite); }
+  .photo-slot { border: 1px dashed var(--graphite); border-radius: 4px; height: 140px; display: flex; align-items: center; justify-content: center; margin: 14px 0; }
+  .photo-slot p { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--graphite); text-align: center; padding: 0 16px; margin: 0; }
+
+  /* About */
+  #about { padding: 60px 0; border-top: 1px solid var(--hair); }
+  #about h2 { font-family: 'JetBrains Mono', monospace; font-size: 20px; margin: 0 0 16px; }
+  #about p { font-size: 15px; max-width: 62ch; }
+
+  /* Contact */
+  #contact { padding: 70px 0 100px; border-top: 1px solid var(--hair); text-align: center; }
+  #contact .eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin: 0 0 14px; }
+  #contact h2 { font-family: 'JetBrains Mono', monospace; font-size: 24px; margin: 0 0 26px; }
+  button.email-copy { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--paper); background: var(--ink); border: none; padding: 13px 24px; border-radius: 3px; cursor: pointer; }
+
+  footer { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--graphite); text-align: center; padding: 24px; border-top: 1px solid var(--hair); }
+
+  /* Real images */
+  .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .photo-grid img { width: 100%; height: 220px; object-fit: cover; border-radius: 4px; border: 1px solid var(--hair); }
+  .logo-block { margin: 14px 0; }
+  .logo-block img { max-width: 320px; width: 100%; border-radius: 6px; }
+
+  /* About */
+  .about-head { display: flex; gap: 22px; align-items: center; margin-bottom: 30px; flex-wrap: wrap; }
+  .headshot { width: 108px; height: 108px; border-radius: 6px; object-fit: cover; border: 1px solid var(--hair); }
+  .about-head h2 { font-family: 'JetBrains Mono', monospace; font-size: 22px; margin: 0 0 4px; }
+  .about-head .role { color: var(--graphite); font-size: 14px; margin: 0 0 8px; }
+  .about-head .contact-line { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--graphite); line-height: 1.8; margin: 0; }
+  .about-head .contact-line a { color: var(--red); text-decoration: none; }
+  .about-block { margin-bottom: 26px; }
+  .about-block h3 { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red); margin: 0 0 10px; }
+  .about-block p { font-size: 14px; margin: 0 0 6px; }
+  .about-block ul { font-size: 14px; padding-left: 18px; margin: 4px 0 0; }
+  .about-block .muted { color: var(--graphite); font-weight: 400; }
+  .exp-item { margin-bottom: 16px; }
+  .exp-item .exp-title { font-weight: 600; margin: 0 0 4px; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 26px; }
+  .about-grid h3 { font-family: 'JetBrains Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--red); margin: 0 0 10px; }
+  .about-grid p, .about-grid li { font-size: 13px; }
+  @media (max-width: 600px) { .about-grid, .photo-grid { grid-template-columns: 1fr; } }
+
+  /* Contact */
+  .copy-fallback { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--graphite); margin-top: 14px; }
+  .copy-fallback span { color: var(--red); cursor: pointer; text-decoration: underline; text-decoration-style: dotted; }
+
+  /* Scroll reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+  /* Agent widget */
+  #agent-toggle {
+    position: fixed; bottom: 22px; right: 22px; z-index: 40;
+    background: var(--red); color: var(--paper); border: none; border-radius: 30px;
+    padding: 13px 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 700;
+    cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.18);
   }
-  .mark {
-    font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 15px;
-    margin-bottom: 28px; letter-spacing: 0.02em;
+  #agent-panel {
+    position: fixed; bottom: 84px; right: 22px; z-index: 40; width: min(360px, calc(100vw - 44px));
+    height: 460px; background: var(--paper); border: 1px solid var(--hair); border-radius: 8px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.22); display: none; flex-direction: column; overflow: hidden;
   }
-  .mark .bracket { color: var(--red); }
-  h1 {
-    font-family: 'JetBrains Mono', monospace; font-weight: 700;
-    font-size: clamp(24px, 5vw, 34px); margin: 0 0 14px; letter-spacing: -0.01em;
-  }
-  p.tag {
-    font-size: 15px; color: var(--graphite); max-width: 46ch; margin: 0 0 30px; line-height: 1.6;
-  }
-  a.email {
-    font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--red);
-    text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 2px;
-  }
-  footer {
-    position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace;
-    font-size: 11px; color: var(--graphite); letter-spacing: 0.06em;
-  }
+  #agent-panel.open { display: flex; }
+  #agent-head { background: var(--ink); color: var(--paper); padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; display: flex; justify-content: space-between; align-items: center; }
+  #agent-head .close { cursor: pointer; color: var(--graphite); }
+  #agent-msgs { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .msg { font-size: 13px; padding: 9px 12px; border-radius: 8px; max-width: 85%; line-height: 1.5; }
+  .msg.user { align-self: flex-end; background: var(--ink); color: var(--paper); }
+  .msg.agent { align-self: flex-start; background: rgba(18,18,18,0.06); color: var(--ink); }
+  .msg.agent.loading { color: var(--graphite); font-family: 'JetBrains Mono', monospace; }
+  #agent-input-row { display: flex; border-top: 1px solid var(--hair); }
+  #agent-input { flex: 1; border: none; background: none; padding: 12px 14px; font-family: 'Inter', sans-serif; font-size: 13px; outline: none; }
+  #agent-send { border: none; background: var(--red); color: var(--paper); padding: 0 16px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="mark"><span class="bracket">[</span>FK<span class="bracket">]</span></div>
-    <h1>Muhammad Fahad Khan</h1>
-    <p class="tag">I find what's actually broken, fix it, and prove the fix with real numbers. Full site under construction.</p>
-    <a class="email" href="mailto:fk3726947@gmail.com">Email me →</a>
+
+<nav>
+  <div class="mark"><span class="bracket">[</span>FK<span class="bracket">]</span></div>
+  <div class="links">
+    <a href="#drone">Drone</a>
+    <a href="#flyrank">FlyRank</a>
+    <a href="#mohvex">Mohvex</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="cta">Email me</a>
   </div>
-  <footer>Built — 2026</footer>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero reveal">
+    <p class="eyebrow">Embedded Systems &amp; Applied ML</p>
+    <h1>I find what's actually broken, fix it, and prove the fix with real numbers.</h1>
+    <p class="sub">Hardware, firmware, or a dataset — the work below is proof, not adjectives: a real bug, a real fix, a real result.</p>
+    <div class="btn-row">
+      <a href="#drone" class="btn primary">See the drone fix</a>
+      <a href="#contact" class="btn ghost">Email me</a>
+    </div>
+  </section>
+
+  <section class="case reveal" id="drone">
+    <p class="case-label">Case 01 · Embedded Systems <span class="lead-tag">Leads</span></p>
+    <h2>ESP32 Quadcopter Drone Build</h2>
+    <div class="photo-grid">
+      <img src="drone-team.jpeg" alt="Drone team with the assembled quadcopter" class="reveal">
+      <img src="drone-hardware.jpeg" alt="Quadcopter hardware — top and side view" class="reveal">
+    </div>
+    <div class="block">
+      <h3>The Problem</h3>
+      <p>Building a quadcopter for a university competition, using an ESP32 flight controller. Even sourcing parts was hard — the propellers needed were out of stock in Pakistan and had to be imported from China. Once built, the drone couldn't hold stable speed and balance — motor response was too slow to react to sensor input in real time.</p>
+    </div>
+    <div class="block">
+      <h3>The Fix</h3>
+      <p>Used AI to dig into the motor response problem before touching hardware, working alongside a mentor. Traced the bug to two things: wrong motor direction, and control loop timing that was too slow. AI caught one of the errors in the logic — reviewed and corrected it personally rather than accepting the fix blindly. Then switched propellers from small to mid-range for added mechanical stability.</p>
+    </div>
+    <div class="block">
+      <h3>Validation</h3>
+      <p>Stable speed and balance confirmed across six test flights.</p>
+    </div>
+  </section>
+
+  <section class="case reveal" id="flyrank">
+    <p class="case-label">Case 02 · Applied ML — FlyRank Internship</p>
+    <h2>Position Isn't a Gradient: Ranking Signal Analysis</h2>
+    <div class="block">
+      <h3>The Question</h3>
+      <p>Content teams commonly assume worse search position means higher review priority, and sort their backlog that way. Tested that assumption directly against real search performance data.</p>
+    </div>
+    <div class="block">
+      <h3>The Finding</h3>
+      <p>Growth rate is flat (~17.5–18.2%) across search positions 1 through 50 — then drops to 3.4% beyond position 50. A cliff, not a gradient. The common assumption doesn't hold within the top 50 ranks.</p>
+    </div>
+    <div class="block">
+      <h3>Model vs. Baseline</h3>
+      <table>
+        <tr><th>Method</th><th>Precision</th><th>Recall</th><th>ROC-AUC</th></tr>
+        <tr><td>Baseline (position &gt; 50 rule)</td><td>0.971</td><td>0.018</td><td>0.508</td></tr>
+        <tr><td>Gradient boosting model</td><td>0.810</td><td>0.996</td><td>0.737</td></tr>
+      </table>
+      <p style="font-size:13px; color:var(--graphite);">The baseline looks precise but catches under 2% of at-risk pages. The model trades some precision for catching nearly all of them.</p>
+    </div>
+    <a href="#" class="btn ghost" style="margin-top:8px;">Read the full paper →</a>
+  </section>
+
+  <section class="case reveal" id="mohvex">
+    <p class="case-label">Case 03 · Founder / CEO</p>
+    <h2>Mohvex Technologies</h2>
+    <div class="logo-block reveal"><img src="mohvex-logo.jpeg" alt="Mohvex Technologies logo"></div>
+    <div class="block">
+      <h3>What Mohvex Builds</h3>
+      <p>Embedded and intelligent products where hardware and software have to work correctly together, in real time — drones and smart home systems.</p>
+    </div>
+  </section>
+
+  <section class="case reveal" id="teaching">
+    <p class="case-label">Case 04 · Teaching</p>
+    <h2>Summer Academy — Computer Basics &amp; English</h2>
+    <div class="block">
+      <h3>The Work</h3>
+      <p>Taught Computer Basics and English at Summer Academy — lesson planning, practice exercises, and real-time student support, with a constant judgment call on pace and simplicity that no template can make for you.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="about-head reveal">
+      <img src="profile.jpeg" alt="Muhammad Fahad Khan" class="headshot">
+      <div>
+        <h2>Muhammad Fahad Khan</h2>
+        <p class="role">Electrical Engineering Student — Power Systems &amp; Embedded Systems</p>
+        <p class="contact-line">+92 320 8086196 · fk3726947@gmail.com<br>
+          <a href="https://linkedin.com/in/fahad-khan-59732636b" target="_blank" rel="noopener">linkedin.com/in/fahad-khan-59732636b</a> ·
+          <a href="https://github.com/Muhammadfahadkhan-max" target="_blank" rel="noopener">github.com/Muhammadfahadkhan-max</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="about-block reveal">
+      <h3>Summary</h3>
+      <p>Electrical Engineering undergraduate (4th semester) at UET Mardan with hands-on exposure to power distribution systems, embedded systems (AVR microcontrollers), and circuit design and simulation. Practical experience with AI/ML model development and a strong foundation in C/C++, MATLAB, and electronics simulation tools. Seeking internship opportunities in power systems, embedded systems, or controls.</p>
+    </div>
+
+    <div class="about-block reveal">
+      <h3>Experience</h3>
+      <div class="exp-item">
+        <p class="exp-title">Machine Learning Intern — FlyRank AI</p>
+        <ul>
+          <li>Contributing to AI/ML projects, including data preprocessing, model development, and performance evaluation using Python.</li>
+          <li>Gained practical exposure applying machine learning techniques to real-world, data-driven problems.</li>
+        </ul>
+      </div>
+      <div class="exp-item">
+        <p class="exp-title">Student Intern — Peshawar Electric Supply Company (PESCO), 2-Month Internship</p>
+        <ul>
+          <li>Observed live power distribution operations including substation equipment, feeder management, and field maintenance procedures.</li>
+          <li>Learned practical electrical safety standards and grid operation protocols by assisting technical staff during routine inspections.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about-block reveal">
+      <h3>Education</h3>
+      <p><strong>B.Sc. Electrical Engineering</strong> — University of Engineering &amp; Technology, Mardan <span class="muted">· Expected June 2028, currently 4th semester</span></p>
+      <p><strong>FSc Pre-Engineering</strong> — Ghazali College, Mardan</p>
+      <p><strong>Matriculation (Science)</strong> — ANSI School &amp; College, Mardan</p>
+    </div>
+
+    <div class="about-grid reveal">
+      <div>
+        <h3>Technical Skills</h3>
+        <p><strong>Programming:</strong> C, C++, Assembly, MATLAB, Python (NumPy)</p>
+        <p><strong>Embedded Systems:</strong> ATmega16, ATmega32, ATmega64 (AVR)</p>
+        <p><strong>Simulation:</strong> Microchip Studio, Proteus, Multisim, PSpice, AutoCAD Electrical</p>
+        <p><strong>Productivity:</strong> Word, Excel, PowerPoint</p>
+      </div>
+      <div>
+        <h3>Certifications</h3>
+        <ul>
+          <li>Introduction to Machine Learning — Kaggle</li>
+          <li>Claude 101 — Anthropic</li>
+          <li>Introduction to Agent Skills — Anthropic</li>
+          <li>Basics of Finance — HP LIFE</li>
+          <li>Business Communication — HP LIFE</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="about-block reveal">
+      <h3>Other Projects</h3>
+      <p><strong>Continuity Tester (Circuit Design)</strong> — Designed and built a circuit to test wire/device continuity; simulated and validated in Proteus and Multisim prior to hardware assembly.</p>
+      <p><strong>Additional programming:</strong> Console calculator (arithmetic/matrix/trig, C/C++) · ATM simulation with authentication (C) · Snake game demonstrating array manipulation (DSA)</p>
+    </div>
+
+    <div class="about-block reveal">
+      <h3>Languages</h3>
+      <p>Urdu (Fluent) · Pashto (Fluent) · English (Professional Working Proficiency)</p>
+    </div>
+  </section>
+
+  <section id="contact" class="reveal">
+    <p class="eyebrow">Hiring, or just want to talk shop?</p>
+    <h2>Email me — I'll walk you through exactly how I fix problems like this.</h2>
+    <a class="btn primary" href="mailto:fk3726947@gmail.com">Email me →</a>
+    <p class="copy-fallback">or <span id="emailBtn" onclick="copyEmail()">copy fk3726947@gmail.com</span> — some devices don't have a default mail app set up, so this always works</p>
+  </section>
+
+</div>
+
+<footer>Built — 2026 · [FK]</footer>
+
+<!-- Personal agent -->
+<button id="agent-toggle" onclick="toggleAgent()">Ask about my work</button>
+<div id="agent-panel">
+  <div id="agent-head">
+    <span>[FK] Agent — ask me anything about the work above</span>
+    <span class="close" onclick="toggleAgent()">✕</span>
+  </div>
+  <div id="agent-msgs"></div>
+  <div id="agent-input-row">
+    <input id="agent-input" type="text" placeholder="e.g. What was the drone bug?" onkeydown="if(event.key==='Enter') sendAgent()">
+    <button id="agent-send" onclick="sendAgent()">Send</button>
+  </div>
+</div>
+
+<script>
+  function copyEmail() {
+    navigator.clipboard.writeText('fk3726947@gmail.com');
+    const btn = document.getElementById('emailBtn');
+    const original = btn.textContent;
+    btn.textContent = 'copied!';
+    setTimeout(() => { btn.textContent = original; }, 1500);
+  }
+
+  // Scroll-triggered reveal (skip hero — it gets its own entrance timing below)
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal:not(.hero)').forEach(el => revealObserver.observe(el));
+
+  // Hero entrance — plays once on load, slightly delayed so it's visible as motion
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => document.querySelector('.hero').classList.add('visible'), 100);
+  });
+
+  function toggleAgent() {
+    document.getElementById('agent-panel').classList.toggle('open');
+  }
+
+  const AGENT_SYSTEM_PROMPT = `You are the portfolio agent for Muhammad Fahad Khan (FK), an Electrical Engineering student (4th semester, UET Mardan) focused on power systems and embedded systems, also doing applied ML work. Answer visitor questions ONLY using the facts below. Be direct, precise, plain, confident — no buzzwords, matching FK's own voice. If asked something not covered here, say honestly that you don't have that detail and suggest they email FK directly. Never invent facts, numbers, or claims not listed here.
+
+FACTS:
+- Drone case: Built an ESP32-based quadcopter for a university competition. Problem: unstable speed/balance from slow motor response. Root cause: wrong motor direction + bad control loop timing, found with AI assistance, reviewed and fixed personally. Also swapped propellers from small to mid-range for mechanical stability. Result: stable across six test flights. Handled sensor fusion (gyro + accelerometer) and PID-based stabilization on the ESP32.
+- FlyRank capstone: Ranking Signal Analysis on real search performance data. Finding: growth rate is flat (~17.5-18.2%) across positions 1-50, then drops to 3.4% beyond position 50 — a cliff, not a gradient. Built a gradient boosting model (precision 0.810, recall 0.996, ROC-AUC 0.737) that beat a simple position-based baseline rule (precision 0.971, recall 0.018, ROC-AUC 0.508).
+- Mohvex Technologies: FK is founder/CEO. Builds embedded and intelligent products — drones, smart home systems. AI automation and intelligent energy focus.
+- Teaching: Taught Computer Basics and English at Summer Academy.
+- Experience: ML Intern at FlyRank AI (data preprocessing, model development, Python). 2-month Student Intern at PESCO (Peshawar Electric Supply Company) — observed substation equipment, feeder management, field maintenance, electrical safety standards.
+- Education: B.Sc. Electrical Engineering, UET Mardan, expected June 2028 (currently 4th semester). FSc Pre-Engineering, Ghazali College Mardan. Matriculation (Science), ANSI School & College Mardan.
+- Technical skills: C, C++, Assembly, MATLAB, Python (NumPy). Embedded: ATmega16/32/64 (AVR). Simulation: Microchip Studio, Proteus, Multisim, PSpice, AutoCAD Electrical.
+- Certifications: Introduction to Machine Learning (Kaggle), Claude 101 (Anthropic), Introduction to Agent Skills (Anthropic), Basics of Finance (HP LIFE), Business Communication (HP LIFE).
+- Other projects: Continuity tester circuit (designed/simulated in Proteus and Multisim). Console calculator in C/C++. ATM simulation with authentication in C. Snake game (DSA/array manipulation).
+- Languages: Urdu (fluent), Pashto (fluent), English (professional working proficiency).
+- Contact: fk3726947@gmail.com, +92 320 8086196, linkedin.com/in/fahad-khan-59732636b, github.com/Muhammadfahadkhan-max`;
+
+  let agentHistory = [];
+
+  function appendMsg(text, role, loading) {
+    const msgs = document.getElementById('agent-msgs');
+    const div = document.createElement('div');
+    div.className = 'msg ' + role + (loading ? ' loading' : '');
+    div.textContent = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
+  }
+
+  // Replace with YOUR worker URL from Cloudflare — this is the only line you need to edit
+  const AGENT_ENDPOINT = "https://fk-agent-proxy.YOUR-SUBDOMAIN.workers.dev";
+
+  async function sendAgent() {
+    const input = document.getElementById('agent-input');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    appendMsg(text, 'user');
+    agentHistory.push({ role: 'user', content: text });
+    const loadingDiv = appendMsg('thinking…', 'agent', true);
+
+    try {
+      const response = await fetch(AGENT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          max_tokens: 400,
+          system: AGENT_SYSTEM_PROMPT,
+          messages: agentHistory
+        })
+      });
+      const data = await response.json();
+      const reply = (data.content || []).map(b => b.text || '').join('\n') || "Sorry, I couldn't get a response — try emailing FK directly.";
+      loadingDiv.remove();
+      appendMsg(reply, 'agent');
+      agentHistory.push({ role: 'assistant', content: reply });
+    } catch (e) {
+      loadingDiv.remove();
+      appendMsg("Something went wrong reaching the agent — email FK directly at fk3726947@gmail.com.", 'agent');
+    }
+  }
+</script>
+
 </body>
 </html>
