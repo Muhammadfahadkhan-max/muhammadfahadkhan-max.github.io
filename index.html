@@ -35,10 +35,9 @@
   p.tag {
     font-size: 15px; color: var(--graphite); max-width: 46ch; margin: 0 0 30px; line-height: 1.6;
   }
-  button.email {
+  a.email {
     font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--red);
-    background: none; border: none; border-bottom: 1px solid var(--red);
-    padding-bottom: 2px; cursor: pointer;
+    text-decoration: none; border-bottom: 1px solid var(--red); padding-bottom: 2px;
   }
   footer {
     position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace;
@@ -51,16 +50,7 @@
     <div class="mark"><span class="bracket">[</span>FK<span class="bracket">]</span></div>
     <h1>Muhammad Fahad Khan</h1>
     <p class="tag">I find what's actually broken, fix it, and prove the fix with real numbers. Full site under construction.</p>
-    <button class="email" id="emailBtn" onclick="copyEmail()">fk3726947@gmail.com — click to copy</button>
-    <script>
-      function copyEmail() {
-        navigator.clipboard.writeText('fk3726947@gmail.com');
-        const btn = document.getElementById('emailBtn');
-        const original = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(() => { btn.textContent = original; }, 1500);
-      }
-    </script>
+    <a class="email" href="mailto:fk3726947@gmail.com">Email me →</a>
   </div>
   <footer>Built — 2026</footer>
 </body>
